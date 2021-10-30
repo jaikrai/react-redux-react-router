@@ -9,14 +9,14 @@ const CourseForm = ({
   onSave,
   onChange,
   saving = false,
-  error = {},
+  errors = {},
 }) => {
   return (
     <form onSubmit={onSave}>
-      <h2>{course.id ? " Edit" : "Add"}</h2>
-      {error.onSave && (
+      <h2>{course.id ? "Edit" : "Add"} Course</h2>
+      {errors.onSave && (
         <div className="alert alert-danger" role="alert">
-          {error.onSave}
+          {errors.onSave}
         </div>
       )}
       <TextInput
@@ -24,8 +24,9 @@ const CourseForm = ({
         label="Title"
         value={course.title}
         onChange={onChange}
-        error={error.title}
+        error={errors.title}
       />
+
       <SelectInput
         name="authorId"
         label="Author"
@@ -36,15 +37,17 @@ const CourseForm = ({
           text: author.name,
         }))}
         onChange={onChange}
-        error={error.title}
+        error={errors.author}
       />
+
       <TextInput
         name="category"
         label="Category"
         value={course.category}
         onChange={onChange}
-        error={error.category}
+        error={errors.category}
       />
+
       <button type="submit" disabled={saving} className="btn btn-primary">
         {saving ? "Saving..." : "Save"}
       </button>
@@ -55,7 +58,7 @@ const CourseForm = ({
 CourseForm.propTypes = {
   authors: PropTypes.array.isRequired,
   course: PropTypes.object.isRequired,
-  error: PropTypes.object,
+  errors: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   saving: PropTypes.bool,
